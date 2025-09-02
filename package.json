@@ -99,6 +99,7 @@
     ],
     "*.json": [
       "biome check --write"
-    ]
+    ],
+    "package-lock.json": []
   }
 }
