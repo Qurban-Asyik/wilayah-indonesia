@@ -13,9 +13,8 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # Install the app dependencies with cache mount for faster builds
-RUN corepack enable pnpm && \
-    --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    corepack enable pnpm && pnpm install --frozen-lockfile
 
 COPY . .
 
