@@ -14,7 +14,7 @@
 
 You can deploy this app to the cloud with a **single click** using [Railway](https://railway.app). This will set up a new project, create a new PostgreSQL database, and deploy the app.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.app/template/9Tcyq9?referralCode=ho_K6W)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/idn-area-api?referralCode=ho_K6W&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 > After deployment is complete, you need to configure the [Public Networking](https://docs.railway.com/reference/public-networking) to **make your API accessible from the internet**.
 
@@ -81,7 +81,7 @@ We also provide Docker configuration with PostgreSQL database support.
 
 - Run `docker compose up` command to build and run the app.
 
-  > If you change any environment variables, you need to rebuild the image using `docker compose up --build` command.
+  > If you change the database provider, you need to rebuild the Docker image using `docker compose up --build` command.
 
 - Finish
 
