@@ -4,6 +4,10 @@
 /src/metadata.ts
 .pnpm-store
 
+# Lock files (except pnpm)
+package-lock.json
+yarn.lock
+
 # Logs
 logs
 *.log

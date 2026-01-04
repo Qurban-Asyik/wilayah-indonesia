@@ -2,13 +2,13 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.Prod
       args:
         - DB_PROVIDER=${DB_PROVIDER:-postgresql}
     container_name: wilayah-indonesia-app
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-9206}:3000"
+      - "${APP_PORT:-9206}:9206"
     env_file:
       - .env
     environment:

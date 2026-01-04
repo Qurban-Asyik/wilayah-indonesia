@@ -34,7 +34,8 @@ jobs:
                   git pull && # Pull the latest changes
                   rm -rf dist && # Remove the dist directory if it exists
                   docker compose -f docker-compose.prod.yml down && # Stop and remove existing containers
-                  docker compose -f docker-compose.prod.yml up --build -d &&  # Build images and start containers in detached mode
+                  DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build && # Build with BuildKit cache
+                  docker compose -f docker-compose.prod.yml up -d &&  # Start containers in detached mode
                   docker compose -f docker-compose.prod.yml ps && # List running containers
                   rm -rf node_modules # Remove node_modules directory
             "
