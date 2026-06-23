@@ -80,6 +80,15 @@
     "node": ">=22.0.0"
   },
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@prisma/client",
+      "@prisma/engines",
+      "@scarf/scarf",
+      "@swc/core",
+      "esbuild",
+      "prisma"
+    ],
     "overrides": {
       "ajv@8": "8.18.0",
       "fastify": "5.8.5",
