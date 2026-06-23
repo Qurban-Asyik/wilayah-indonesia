@@ -14,7 +14,7 @@ COPY package.json pnpm-lock.yaml ./
 
 # Install the app dependencies with cache mount for faster builds
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
-    corepack enable pnpm && pnpm install --frozen-lockfile
+  corepack enable pnpm && pnpm install --frozen-lockfile
 
 COPY . .
 
@@ -63,7 +63,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 USER nestjs
 
 # Expose the port that your NestJS app will listen on
-EXPOSE 9206
+EXPOSE 8300
 
 # Add health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

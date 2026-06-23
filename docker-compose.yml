@@ -6,7 +6,7 @@ services:
       args:
         - DB_PROVIDER=${DB_PROVIDER}
     ports:
-      - "${APP_PORT:-9206}:9206"
+      - "${APP_PORT:-8300}:8300"
     # depends_on:
     #   - db
     env_file:
