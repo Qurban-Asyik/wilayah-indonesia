@@ -10,6 +10,27 @@ describe('Data Utilities', () => {
     vi.clearAllMocks();
   });
 
+  describe('isJavaArea', () => {
+    it('should accept Java and Madura codes at every level', async () => {
+      const { isJavaArea } = await import('../data');
+
+      expect(isJavaArea('31')).toBe(true);
+      expect(isJavaArea('36.01')).toBe(true);
+      expect(isJavaArea('35.26.01')).toBe(true); // Bangkalan, Madura
+      expect(isJavaArea('35.29.01.2001')).toBe(true); // Sumenep, Madura
+      expect(isJavaArea('32.01.40001')).toBe(true); // island code
+    });
+
+    it('should reject codes outside Java', async () => {
+      const { isJavaArea } = await import('../data');
+
+      expect(isJavaArea('11')).toBe(false);
+      expect(isJavaArea('37.01')).toBe(false);
+      expect(isJavaArea('51.71.01.1001')).toBe(false);
+      expect(isJavaArea('3')).toBe(false);
+    });
+  });
+
   describe('getProvinces', () => {
     it('should call getData with correct parameters for provinces', async () => {
       // Import after mocking

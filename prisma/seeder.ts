@@ -5,10 +5,17 @@ import {
   getProvinces,
   getRegencies,
   getVillages,
+  isJavaArea,
 } from '@/common/utils/data';
 import { getInstalledPackageVersion } from '@/common/utils/package';
 
 export type Area = 'province' | 'regency' | 'district' | 'village' | 'island';
+
+/**
+ * Suffix stored with the data version, so databases seeded with the full
+ * (all-Indonesia) data are detected as changed and re-seeded.
+ */
+const DATA_SCOPE = '+java';
 
 export class Seeder {
   constructor(protected readonly prisma: PrismaClient) {
@@ -37,7 +44,7 @@ export class Seeder {
       })) ?? {};
 
     // Compare the installed version of the package with the latest data version in the database.
-    return !dataVersion || dataVersion !== packageVersion;
+    return !dataVersion || dataVersion !== packageVersion + DATA_SCOPE;
   }
 
   // Methods to insert data to the database.
@@ -50,7 +57,10 @@ export class Seeder {
       island: getIslands,
     }[area]();
 
-    const res = await (this.prisma as any)[area].createMany({ data });
+    // Only Java (incl. Madura) areas; every area code starts with its province code.
+    const res = await (this.prisma as any)[area].createMany({
+      data: data.filter((a) => isJavaArea(a.code)),
+    });
     return res.count;
   }
 
@@ -72,7 +82,7 @@ export class Seeder {
     }
 
     await this.prisma.seederLogs.create({
-      data: { dataVersion: packageVersion },
+      data: { dataVersion: packageVersion + DATA_SCOPE },
     });
   }
 }
