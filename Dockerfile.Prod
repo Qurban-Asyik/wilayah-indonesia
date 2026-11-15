@@ -10,7 +10,7 @@ ENV HUSKY=0
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Install the app dependencies with cache mount for faster builds
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
@@ -67,6 +67,6 @@ EXPOSE 8300
 
 # Add health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8300/health || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]

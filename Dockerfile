@@ -48,19 +48,10 @@ RUN pnpm run prisma:gen
 
 WORKDIR /app
 
-# Copy the necessary files from the builder stage
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/tsconfig.* ./
-COPY --from=builder /app/src/common ./src/common
-
 # Expose the port that your NestJS app will listen on
 EXPOSE 8300
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8300/health || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
